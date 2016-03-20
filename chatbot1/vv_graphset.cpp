@@ -125,7 +125,67 @@ double VVGraphSet::informationContent(VVGraphSet referenceSet) {
 \*==========================================*/
 
 std::set<std::pair<Label, float>> VVGraphSet::simulateBehavior(std::set<std::pair<Label, float>> inputEnergy) {
-    std::set<std::pair<Label, float>> finalEnergyLocations;
-    return finalEnergyLocations;
+    // inputEnergy should be in boundaryNodes. We should check this
+    // in a future version. #HACKLYFE
+    // if there are multiple boundary nodes, some energy might escape
+    // there sooner than others. Some nodes may exude energy multiple
+    // times per simulation. We need a callback? How do we deal with
+    // time? We could just attach an input/output time encoder/decoder
+    // but that would yield a much larger network.
+    // #todo time<->space tradeoff. Formalize. But our input/output
+    //       is probably going to be in the time domain already.
+    //       why even convert? (it's easier to code)
+    
+    // TEMPORARY: Only support the sum over time of energy leaving the
+    // system. Should be ok at least for boolearning.
+    // Will loop forever if energy gets trapped. #todo fix this.
+    
+    std::map<Label, float> currentEnergyLocs;
+    std::set<std::pair<Label, float>> finalEnergyLocs;
+    for (auto energyInput : inputEnergy) {
+        currentEnergyLocs[energyInput.first] = energyInput.second;
+    }
+    
+    // now, loop until "convergence"
+    while (currentEnergyLocs.size() > 0) {
+        // when energy encounters a fork, which way does it go?
+        // please don't tell me that weights are necessary here.
+        // What does it mean for two nodes to be connected to a third?
+        // they share a relationship. An abstraction. They are reduced
+        // to equality under parentship. What if we just assume
+        // that everyone gets a fair share? Errrrr. All neighbors
+        // are the same. Otherwise they wouldn't share the same
+        // relationship. Right? (I'm not convinced) #todo formalize
+        // #todo: would adding weights simplify the number
+        //        of computations that you'd have to make?
+        // (why not weights? My head doesn't explicitly give certain
+        //  thoughts more weight... otherwise they'd be lost?)
+        for (auto i : currentEnergyLocs) {
+            // don't instantiate a new graphset every time
+            // just to save some memory #prematureOptimization?
+            VVGraphSet currentNode = i.first;
+            float currentEnergy = i.second;
+            std::set<Label> *neighbors = currentNode.neighbors;
+            
+            // treat boundary nodes as another neighbor
+            long numOutbound = neighbors->size();
+            // AHHHHHHH HOW TO DETECT BOUNDARY
+            
+            
+            float distributedEnergy = currentEnergy / numOutbound;
+            for (auto target : *neighbors) {
+                currentEnergyLocs[target] += distributedEnergy;
+                // note: this will explode with feedback loops.
+                // also next loop this will just go back to the parent
+                // ERRRRRRRR NO ENERGY HAS A DIRECTION AHHHHHH
+            }
+            // all the energy has left.
+            // Note, that if we ever decide to parallelize this,
+            // this will not be correct.
+            currentEnergyLocs.erase(i.first);
+        }
+    }
+    
+    return finalEnergyLocs;
 }
 

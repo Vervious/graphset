@@ -102,6 +102,17 @@ public:
     // input/output nodes.
     std::set<Label> boundaryNodes;
     
+    // thoughts on boundaryNodes:
+    // it seems meaningful to have energy perpetually escape
+    // since not very many systems (if any) are thermodynamically
+    // ideal... Perhaps because of how granular the universe is,
+    // and also in the brain, signals die... but theoretically
+    // our model should be able ot learn that? #todo think about
+    // energy dissipation and entropy (motivation)
+    // We could just add boundary nodes at every node, but
+    // our brain doesn't think about heat generated when abstract
+    // -ing a system.
+    
     // ok. Useful stuff. Simulate behavior. In an environment.
     // does energy need to be vectorized?
     // input energy merely refers to an energy differential.
