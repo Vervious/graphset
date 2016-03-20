@@ -124,6 +124,16 @@ double VVGraphSet::informationContent(VVGraphSet referenceSet) {
 *  See header file for theoretical concerns. *
 \*==========================================*/
 
+// justifying the model:
+// OK. So. The universe: an infinitely (or finitely?) dimensional space, with little
+// infinitely small "balls" of energy moving around in space through time.
+// You can build abstractions around a discrete spaces that contain "balls" of energy.
+// Where will a ball go next? within an abstraction, you have no idea.
+// But if you know it will go to another event space, you can draw a line?
+// If you know it will split up, you can draw two lines?
+// if you know it will split up non-equally, you can draw weighted lines?
+// how many ways can the energy move as time progresses?
+
 std::set<std::pair<Label, float>> VVGraphSet::simulateBehavior(std::set<std::pair<Label, float>> inputEnergy) {
     // inputEnergy should be in boundaryNodes. We should check this
     // in a future version. #HACKLYFE
@@ -170,6 +180,7 @@ std::set<std::pair<Label, float>> VVGraphSet::simulateBehavior(std::set<std::pai
             // treat boundary nodes as another neighbor
             long numOutbound = neighbors->size();
             // AHHHHHHH HOW TO DETECT BOUNDARY
+            // LOOKUP: WHY DOES A BALL BOUNCE? (PHYSICS) (elasticity)
             
             
             float distributedEnergy = currentEnergy / numOutbound;
@@ -178,6 +189,8 @@ std::set<std::pair<Label, float>> VVGraphSet::simulateBehavior(std::set<std::pai
                 // note: this will explode with feedback loops.
                 // also next loop this will just go back to the parent
                 // ERRRRRRRR NO ENERGY HAS A DIRECTION AHHHHHH
+                // what if we jsut let that happen lol.
+                // some input energy will be lost??
             }
             // all the energy has left.
             // Note, that if we ever decide to parallelize this,

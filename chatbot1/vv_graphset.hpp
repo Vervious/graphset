@@ -5,6 +5,23 @@
 //  Created by Benjamin Y Chan on 2/19/16.
 //  Copyright © 2016 vervious. All rights reserved.
 //
+//  Note that the graphset is simply an extension of a
+//  probability distribution, with discrete events;
+//  if taken to the limit, it becomes a continuous distribution.
+//  * Clearly, what we then need is a way to compare
+//    discrete and continuous entropy measures
+//    (or abstractions with something else)
+//
+//  Key, intuitive visualizations:
+//  * energy: location of a particle.
+//  * node: a subspace, or event space. 3D Rectangle.
+//  * Abstraction: when a system doesn't know enough to
+//    use the full granularity of an object, but the object
+//    item exists (e.g. I know that if I turn on a computer,
+//    it turns on, but not necessarily what the button did, or
+//    all those little details.)
+//      - The abstraction event space is strictly greater than
+//        any singular instance of its more granular form.
 
 #ifndef vv_graphset_hpp
 #define vv_graphset_hpp
