@@ -29,7 +29,6 @@ std::string ChatbotNexus::observeAndReact(std::string observation) {
 
 void ChatbotNexus::encodeNewInformation(std::string newInformation) {
     // first, parse new information into ordered list of words
-    std::vector<std::string> words = utility::split(newInformation, ' ');
     
     // from a sentence, you can derive many different types of relationships...
     // If each word is a symbol, basically every word will have a connection between them.
@@ -46,11 +45,21 @@ void ChatbotNexus::encodeNewInformation(std::string newInformation) {
     // - greedy
     //       * add a node regardless, and cut if it is useless (provides no extra information) <--- this seems to be the neural mechanism
     //         with synaptic pruning.
+    // ************
+    // all of this should be "motivated" by the motivation circuit. But what is the best way to hook the
+    // motivation circuit into the system? Because honestly, the motivation circuit should be part of the information nexus.
+    // What does evolution of the motivation circuit look like?
+    // ************
+    // for now we can just hardcode a motivation circuit, as appropriate. "Hungry for information" will be a definition that changes as
+    // the system gets more and more complex. Human level hungriness might not be superintelligence level motivation. For instance
+    // humans have an element of curiosity that lesser creatures don't have.
     //
-    for ( auto &i : words) {
-        std::cout << "Debug Message: " << i << std::endl;
-        Relationship newRel = this->knowledgeNexus.makeRelationshipBetweenNodes("A", "B");
-        this->knowledgeNexus.createRelationship(newRel);
-    }
+    // ************
+    // Make sure to preserve information.
+    // especially the order of words.
+    // ************
+    //
+    std::vector<Node> inputEnergyAffectedNodes = this->knowledgeNexus.closestMatchNodesForInputEnergy(newInformation);
+    std::vector<Node> nodesProducingOutputEnergy = this->knowledgeNexus.outputForEnergyInput(inputEnergyAffectedNodes);
     return;
 }

@@ -26,7 +26,7 @@ class ChatbotNexus {
 private:
     KnowledgeNexus knowledgeNexus;
     MotivationCircuit motivationCircuit;
-    void ChatbotNexus::encodeNewInformation(std::string);
+    void encodeNewInformation(std::string);
 public:
     // represents the sole observation and sole action the chatbot can take
     std::string observeAndReact(std::string);

@@ -13,6 +13,9 @@
 		878522931C641468005952EE /* vv_chatbot_nexus.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 878522911C641468005952EE /* vv_chatbot_nexus.cpp */; };
 		878522971C644F40005952EE /* vv_motivation_circuit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 878522951C644F40005952EE /* vv_motivation_circuit.cpp */; };
 		8785229B1C66DA67005952EE /* vv_utilities.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 878522991C66DA67005952EE /* vv_utilities.cpp */; };
+		87A6C13E1C9E0B3F00DE9BD4 /* vv_booleanfunctionlearning_nexus.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87A6C13C1C9E0B3F00DE9BD4 /* vv_booleanfunctionlearning_nexus.cpp */; };
+		87A6C1411C9E14FB00DE9BD4 /* random_helper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87A6C1401C9E14FB00DE9BD4 /* random_helper.cpp */; };
+		87ABF56D1C77E80400AB7A5E /* vv_graphset.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87ABF56B1C77E80400AB7A5E /* vv_graphset.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -40,6 +43,12 @@
 		878522961C644F40005952EE /* vv_motivation_circuit.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = vv_motivation_circuit.hpp; sourceTree = "<group>"; };
 		878522991C66DA67005952EE /* vv_utilities.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vv_utilities.cpp; sourceTree = "<group>"; };
 		8785229A1C66DA67005952EE /* vv_utilities.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = vv_utilities.hpp; sourceTree = "<group>"; };
+		87A6C13C1C9E0B3F00DE9BD4 /* vv_booleanfunctionlearning_nexus.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vv_booleanfunctionlearning_nexus.cpp; sourceTree = "<group>"; };
+		87A6C13D1C9E0B3F00DE9BD4 /* vv_booleanfunctionlearning_nexus.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = vv_booleanfunctionlearning_nexus.hpp; sourceTree = "<group>"; };
+		87A6C13F1C9E14FB00DE9BD4 /* random_helper.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = random_helper.hpp; sourceTree = "<group>"; };
+		87A6C1401C9E14FB00DE9BD4 /* random_helper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = random_helper.cpp; sourceTree = "<group>"; };
+		87ABF56B1C77E80400AB7A5E /* vv_graphset.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vv_graphset.cpp; sourceTree = "<group>"; };
+		87ABF56C1C77E80400AB7A5E /* vv_graphset.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = vv_graphset.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +82,8 @@
 			isa = PBXGroup;
 			children = (
 				878522791C63D51C005952EE /* main.cpp */,
+				87A6C13D1C9E0B3F00DE9BD4 /* vv_booleanfunctionlearning_nexus.hpp */,
+				87A6C13C1C9E0B3F00DE9BD4 /* vv_booleanfunctionlearning_nexus.cpp */,
 				878522921C641468005952EE /* vv_chatbot_nexus.hpp */,
 				878522911C641468005952EE /* vv_chatbot_nexus.cpp */,
 				878522981C66DA52005952EE /* utilities */,
@@ -88,6 +99,8 @@
 			children = (
 				878522851C63E816005952EE /* vv_knowledge_nexus.hpp */,
 				878522841C63E816005952EE /* vv_knowledge_nexus.cpp */,
+				87ABF56C1C77E80400AB7A5E /* vv_graphset.hpp */,
+				87ABF56B1C77E80400AB7A5E /* vv_graphset.cpp */,
 			);
 			name = knowledge_nexus;
 			sourceTree = "<group>";
@@ -113,6 +126,8 @@
 		878522981C66DA52005952EE /* utilities */ = {
 			isa = PBXGroup;
 			children = (
+				87A6C13F1C9E14FB00DE9BD4 /* random_helper.hpp */,
+				87A6C1401C9E14FB00DE9BD4 /* random_helper.cpp */,
 				8785229A1C66DA67005952EE /* vv_utilities.hpp */,
 				878522991C66DA67005952EE /* vv_utilities.cpp */,
 			);
@@ -175,7 +190,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				87A6C1411C9E14FB00DE9BD4 /* random_helper.cpp in Sources */,
 				878522931C641468005952EE /* vv_chatbot_nexus.cpp in Sources */,
+				87A6C13E1C9E0B3F00DE9BD4 /* vv_booleanfunctionlearning_nexus.cpp in Sources */,
+				87ABF56D1C77E80400AB7A5E /* vv_graphset.cpp in Sources */,
 				878522971C644F40005952EE /* vv_motivation_circuit.cpp in Sources */,
 				878522861C63E816005952EE /* vv_knowledge_nexus.cpp in Sources */,
 				878522901C6410A0005952EE /* vv_stimulus_translator.cpp in Sources */,
@@ -190,7 +208,7 @@
 		8785227B1C63D51C005952EE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -233,7 +251,7 @@
 		8785227C1C63D51C005952EE /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -270,6 +288,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				"USER_HEADER_SEARCH_PATHS[arch=*]" = "$(LIBRARY_USR_LOCAL_INCLUDE)";
+				"WARNING_CFLAGS[arch=*]" = "-Wno-gnu";
 			};
 			name = Debug;
 		};
@@ -277,6 +297,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				"USER_HEADER_SEARCH_PATHS[arch=*]" = "$(LIBRARY_USR_LOCAL_INCLUDE)";
 			};
 			name = Release;
 		};
@@ -299,6 +320,7 @@
 				8785227F1C63D51C005952EE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

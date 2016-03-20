@@ -33,6 +33,14 @@ typedef std::pair<Node, Node> Relationship;
  * (taken to be maybe probablistic, at least for this basic version, 
  * for the purpose of lerning C++).
  *
+ * Requires a sort of traversal. How do we interpret this? (And neural signals in general?)
+ * - all systems are static, in the universe, unless affected by some sort of energy
+ * - a signal is simply the propogation of energy from the external universe on the system
+ * - consider it a life force, or driving energy, the "input energy" 
+ * - Perhaps it's just another dimension, the universe evolving through time, but lets pick 
+ *      this dimension out since we sort of have to
+ *
+ * Other notes
  * - currently in memory, but eventually we could persist the knwoledge graph.
  * - could treat **structure like query**
  * - we store connections in a matrix of 1s and 0s. Note that an inhibition would
@@ -47,18 +55,36 @@ class KnowledgeNexus {
 private:
     // the adjacency list and map must be updated concurrently
     AdjacencyList knowledgeRep;
+    
+    // an ugly bimap, but boost is throwing error after another
+    // at me
     std::map<Node, int> nodeToInt;
+    std::map<int, Node> intToNode;
+    // store an energy value for each node.
+    // the vector corresponds to <energy level, direction>, where direction
+    // is the source of the node(s) that it came from.
+    std::map<int, std::pair<int, std::set<int>>> intNodeToEnergyVector;
+    
     int nextInt; // the next unused node id
     
     // get the integer corresponding to the given node
     int intForNodeCreatingNodeIfNeeded(Node);
+    std::set<Node> connectionsToNode(Node);
 public:
     KnowledgeNexus();
     void createRelationship(Relationship);
     void destroyRelationship(Relationship);
-    static Relationship makeRelationshipBetweenNodes(Node, Node);
+    
+    static Relationship aRelationshipBetweenNodes(Node, Node);
     static Node nodeForString(std::string);
+
     std::string printString();
+    // we're treating input as energy, and output as energy, and this might modify the system.
+    std::vector<Node> outputForEnergyInput(std::vector<Node>);
+    
+    // figure out what the input set of nodes is. Answers the question: what is the first step when arbitrary energy affects the system?
+    // typically plug in the result into outputForEnergyInput
+    std::vector<Node> closestMatchNodesForInputEnergy(std::string);
 };
 
 #endif /* vv_knowledge_nexus_hpp */
