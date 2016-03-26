@@ -22,6 +22,52 @@
 //    all those little details.)
 //      - The abstraction event space is strictly greater than
 //        any singular instance of its more granular form.
+//
+//  Ok. Intution take two:
+//  * The universe is simply an infinitely granular (continuouss)
+//      field. This field acts on infinitely small particles.
+//      The size of the particle is tied with the granularity of
+//      the field. (after all, if the particle is not at all
+//      granular in size, a granualr field is useless)
+//  * We can assume right off the bat that these particles are
+//      infinitely small in nature. We then look at integrals
+//      or sum totals of particles, for that is something we can
+//      measure.
+//  * Each particle (doesn't need velocity: can encapsulate that
+//      as another dimension? But then, how does it move? Are we
+//      defining a location field?) simply has a location,
+//      nothing else. All other properties can be derived.
+//  * In this sense, the field is a "location field". Errr.
+//      Something's not right. What about speed? To move b/w locs,
+//      you gotta "move".
+//  * These properties can be encapsulated in terms of fractions:
+//      what fraction of particles moves on to each connected
+//      space? (or node?), or stays?
+//  * In this sense, the path of any given particle
+//      is deterministic, but the work of abstraction makes
+//      paths divergent.
+//
+//  Question: What reduces to a vector field? Can anything?
+//  We might need a better way to define functions, over
+//  infinity granularity (real-valued properties-->how?)
+//  ^ can our minds do that? Tell the difference between
+//    2 and 2.1222?
+//
+//  Intuition take 3:
+//  * Ok. A graph is a discretized, abstracted field of some sort.
+//  * We introduce the concept of energy: each property of a particle
+//      (e.g. velocity) can simply be reduced to another dimension.
+//      In that sense, each node has the same energy, and we are
+//      defining an equi-energy field, where particles can go
+//      however they please.
+//  * Diffusion then takes over: particles may have some initial
+//      movement, but no work is ever done on them. Hence, they act
+//      sort of like molecules of a gas.
+//  * This field is then not a force field, and cannot do any work.
+//      Not entirely sure how to call it, or describe it.
+//  * Reduces to defining fractional boundaries in space and
+//      simulating with the diffusion method (see the simulateBehavior)
+//
 
 #ifndef vv_graphset_hpp
 #define vv_graphset_hpp
@@ -30,6 +76,7 @@
 #include <string>
 #include <vector>
 #include <set>
+#include <map>
 
 typedef std::string Label;
 
@@ -55,6 +102,12 @@ typedef std::string Label;
 //      - actually strike that. Let's just keep track of neighbors.
 // Think hierarchally: We could also have every node describe all neighbors, but that's less intuitive in terms
 // of the abstraction mechanism.
+//
+// OK. We need weights. No way around it... Why? A. it's equivalent to binary relationships. Ish.
+// It just doesn't make sense to draw lots of duplicate simple binary relationships, or force that extra
+// granularity, especially when the whole goal is to draw as few abstractions as possible while modeling
+// an observed distribution successfully.
+
 class VVGraphSet {
 private:
     // an unique label, for intuitive use. Should probably set it
@@ -62,11 +115,18 @@ private:
     Label stringLabel;
     // In addition, graphsets are identified by composition.
     // internal rep
-    std::set<Label> *neighbors;
-    Label neighborCompositionLabel; // to help with identifying
+    std::map<Label, float> *neighbors;
+    float totalWeight(); // weights must be normalized
+    float averageWeight();
+    
     // print our structure, for debugging
     void printStructure();
-    void updateCompositionLabel();
+    
+    // rep checks
+//    void checkRep();
+    // hash
+    Label cachedHash;
+    Label hash();
 public:
     // get a graphset for the given unique label
     // Also enables implicit conversions for below methods
@@ -86,6 +146,15 @@ public:
     // bidirectional. Adds ourselves to child's children too.
     // equivalent to add neighbor
     // The way you access the interface then determines what perspective you have into the structure.
+    // weights need to be normalized
+    // don't need to reassign every weight. Just need to
+    // devote a new fraction of the original to the child.
+    // Also note that the weights don't have to be symmetric;
+    // after all, different nodes can encompass different
+    // surface areas. But they do have to be basically
+    // non-zero (I guess unless you take it to the
+    // limit)
+    // float weightFraction
     void addChild(VVGraphSet childGraph);
     // simple deassociation
     void removeChild(VVGraphSet childGraph);
@@ -119,38 +188,44 @@ public:
     // input/output nodes.
     std::set<Label> boundaryNodes;
     
-    // thoughts on boundaryNodes:
-    // it seems meaningful to have energy perpetually escape
-    // since not very many systems (if any) are thermodynamically
-    // ideal... Perhaps because of how granular the universe is,
-    // and also in the brain, signals die... but theoretically
-    // our model should be able ot learn that? #todo think about
-    // energy dissipation and entropy (motivation)
-    // We could just add boundary nodes at every node, but
-    // our brain doesn't think about heat generated when abstract
-    // -ing a system.
+    // NEW SIMULATION THEORY
+    // particles do not have velocities
+    // input and output nodes must both be in boundaryNodes
+    std::map<Label, float> simulateBehavior(std::map<Label, float> inputEnergy);
     
-    // ok. Useful stuff. Simulate behavior. In an environment.
-    // does energy need to be vectorized?
-    // input energy merely refers to an energy differential.
-    //     - Can be negative (e.g. hot object in cold water).
-    // how about this: vectorized in the sense that energy is
-    // either going in (+) or going out (-). Everything else
-    // can be encapsulated in terms of relationships. (e.g.
-    // direction a system is traveling, etc)
-    // --
-    // returns a converged energy state for labels on the
-    // input/output boundaries specified for the graph set.
-    // note: typically probably won't converge. FEedback loops
-    // will maintain state. #todo: run a true simulation.
-    // Here we just assume that energy doesn't get trapped and
-    // that it just leaves the system, like it does a function.
-    // #todo implement otherwise
-    // --
-    // inputEnergy must be a subset of boundaryNodes
-    // #todo: how does this reduce to a turing machine? Can it?
-    //        - write a reduction.
-    std::set<std::pair<Label, float>> simulateBehavior(std::set<std::pair<Label, float>> inputEnergy);
+    // DEPRECATED
+//    // thoughts on boundaryNodes:
+//    // it seems meaningful to have energy perpetually escape
+//    // since not very many systems (if any) are thermodynamically
+//    // ideal... Perhaps because of how granular the universe is,
+//    // and also in the brain, signals die... but theoretically
+//    // our model should be able ot learn that? #todo think about
+//    // energy dissipation and entropy (motivation)
+//    // We could just add boundary nodes at every node, but
+//    // our brain doesn't think about heat generated when abstract
+//    // -ing a system.
+//    
+//    // ok. Useful stuff. Simulate behavior. In an environment.
+//    // does energy need to be vectorized?
+//    // input energy merely refers to an energy differential.
+//    //     - Can be negative (e.g. hot object in cold water).
+//    // how about this: vectorized in the sense that energy is
+//    // either going in (+) or going out (-). Everything else
+//    // can be encapsulated in terms of relationships. (e.g.
+//    // direction a system is traveling, etc)
+//    // --
+//    // returns a converged energy state for labels on the
+//    // input/output boundaries specified for the graph set.
+//    // note: typically probably won't converge. FEedback loops
+//    // will maintain state. #todo: run a true simulation.
+//    // Here we just assume that energy doesn't get trapped and
+//    // that it just leaves the system, like it does a function.
+//    // #todo implement otherwise
+//    // --
+//    // inputEnergy must be a subset of boundaryNodes
+//    // #todo: how does this reduce to a turing machine? Can it?
+//    //        - write a reduction.
+//    std::set<std::pair<Label, float>> simulateBehavior(std::set<std::pair<Label, float>> inputEnergy);
     
 };
 
